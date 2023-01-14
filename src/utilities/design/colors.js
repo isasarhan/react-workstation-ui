@@ -1,0 +1,1 @@
+export const myBackgroundColor = "#1B9AAA"
