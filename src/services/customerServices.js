@@ -1,10 +1,10 @@
 import http from './httpServices'
 import config from '../config.json'
 
-const apiUrl = `${config.apiUrl}/customers/`
+const apiUrl = `${config.apiUrl}/customers`
 
 export const getCustomer = (id) => {
-    return http.get(apiUrl + id)
+    return http.get(`${apiUrl}/${id}`)
 }
 export const getCustomers = () => {
     return http.get(apiUrl)
