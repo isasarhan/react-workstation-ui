@@ -23,7 +23,7 @@ const CustomerForm = () => {
         home: Joi.string().min(5),
         city: Joi.string(),
         country: Joi.string(),
-    }).required()
+    }).required() 
 
     const { handleSubmit, register, setValue, reset, formState: { errors } } = useForm({
         resolver: joiResolver(schema),

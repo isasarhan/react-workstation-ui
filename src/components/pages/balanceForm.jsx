@@ -6,34 +6,47 @@ import { useForm } from 'react-hook-form';
 import { myBackgroundColor } from '../../utilities/design/colors';
 import Input from '../common/input';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import { saveBalance } from '../../services/balanceServices';
+import { getBalance, saveBalance } from '../../services/balanceServices';
 import { getCustomers } from '../../services/customerServices';
 import _ from 'lodash';
 import AlertDialog from '../common/AlertDialog';
+import { useParams } from 'react-router-dom';
 
 const AddBalance = () => {
 
     const [customer, setCustomer] = useState()
     const [customers, setCustomers] = useState([{ _id: "1", name: "issa" }, { _id: "2", name: "ahmad" }])
     const [open, setOpen] = useState(false);
+    const [focused, setFocused] = useState(false);
+
+    let params = useParams()
 
     const schema = Joi.object({
         customers: Joi.string().required(),
         gold: Joi.number(),
         cash: Joi.number(),
     }).required()
-    const { handleSubmit, register, reset, formState: { errors } } = useForm({
+    const { handleSubmit, register, reset, setValue, formState: { errors } } = useForm({
         resolver: joiResolver(schema)
     })
     const initialize = async () => {
         const { data } = await getCustomers()
         const result = data.map(d => _.pick(d, ["_id", "name"]))
         setCustomers(result)
-        console.log(customers);
+    }
+    const getData = async (id) => {
+        const { data } = await getBalance(id)
+        setValue("gold", data.gold)
+        setValue("cash", data.cash)
+        setCustomer(data.customer)
+        setFocused(true)
     }
     useEffect(() => {
+        if (params.id)
+            getData(params.id)
         initialize()
-    })
+    }, [])
+
     const onSubmit = async (data) => {
         const balance = {
             customerid: customer._id,
@@ -48,13 +61,14 @@ const AddBalance = () => {
         const result = customers.find(c => c.name === v)
         setCustomer(result)
     }
+    const isFocused = () => {
+        if (focused) return { focused: true }
+    }
     const handleAgree = () => {
         setOpen(false)
-        console.log("Yes")
     }
     const handleDisagree = () => {
         setOpen(false)
-        console.log("Yes")
         reset()
     }
     return (
@@ -83,10 +97,10 @@ const AddBalance = () => {
                         onChange={autoCompleteChange}
                     />
 
-                    <Input register={register} label="Gold" name="gold" sx={{ m: 1 }} />
+                    <Input register={register} label="Gold" name="gold" {...isFocused()} />
                     <p>{errors.gold?.message}</p>
 
-                    <Input register={register} label="Cash" name="cash" sx={{ m: 1 }} />
+                    <Input register={register} label="Cash" name="cash" {...isFocused()} />
                     <p>{errors.cash?.message}</p>
                     <Button sx={{ m: 1, width: '25ch', background: `${myBackgroundColor}` }} variant="contained" type='submit'>Submit</Button>
                 </Box>

@@ -4,6 +4,9 @@ import config from '../config.json'
 
 const apiUrl = `${config.apiUrl}/balances`
 
+export const getBalance = (id) => {
+    return http.get(`${apiUrl}/${id}`)
+}
 export const getBalances = () => {
     return http.get(`${apiUrl}`)
 }
@@ -16,4 +19,8 @@ export const saveBalance = (balance) => {
     }
     console.log(balance);
     return http.post(`${apiUrl}/`, balance)
+}
+
+export const deleteBalances = (id) => {
+    return http.delete(`${apiUrl}/${id}`)
 }

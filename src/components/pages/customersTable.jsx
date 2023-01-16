@@ -39,14 +39,17 @@ const CustomersTable = () => {
         { field: 'edit', headerName: 'Edit', width: 150, renderCell: (customers) => linkButton(customers.row._id) },
         { field: 'delete', headerName: 'Delete', width: 150, renderCell: (customers) => (<DesignButton text="Delete" onClick={() => onDelete(customers.row._id)} />) },
     ]
-
-    // state = {
-    //     customers: []
-    // }
-
     const initializeTable = async () => {
-        const { data } = await getCustomers()
-        setCustomers(data)
+
+        const check = localStorage.getItem("customers")
+        if (check) {
+            setCustomers(JSON.parse(check))
+        }
+        else {
+            const { data } = await getCustomers()
+            setCustomers(data)
+            localStorage.setItem("customers", JSON.stringify(data))
+        }
     }
 
     useEffect(() => {

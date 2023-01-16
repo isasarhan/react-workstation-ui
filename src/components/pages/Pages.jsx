@@ -14,6 +14,7 @@ const Pages = () => {
       <Route path='/customers/add/:id' element={<CustomerForm/>}/>  
       <Route path='/customers' element={<CustomersTable/>}/>
       <Route path='/balances/add' element={<BalanceForm/>}/>
+      <Route path='/balances/add/:id' element={<BalanceForm/>}/>
       <Route path='/balances/' element={<BalanceTable/>}/>
     </Routes>
   )
