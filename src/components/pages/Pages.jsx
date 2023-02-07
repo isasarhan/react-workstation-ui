@@ -5,11 +5,15 @@ import CustomerForm from '../pages/customerForm'
 import CustomersTable from '../pages/customersTable'
 import BalanceForm from './balanceForm'
 import Home from './Home'
+import LoginForm from './loginForm'
+import RegisterForm from './registerForm'
 
 const Pages = () => {
   return (
     <Routes>
       <Route path='/' element={<Home/>}/>
+      <Route path='/register' element={<RegisterForm/>}/>
+      <Route path='/login' element={<LoginForm/>}/>
       <Route path='/customers/add' element={<CustomerForm/>}/>  
       <Route path='/customers/add/:id' element={<CustomerForm/>}/>  
       <Route path='/customers' element={<CustomersTable/>}/>

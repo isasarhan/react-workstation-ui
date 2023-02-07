@@ -17,11 +17,6 @@ import { NavLink } from 'react-router-dom';
 import _ from 'lodash';
 
 const drawerWidth = 240;
-const navItems = [
-    <NavLink to="/" style={{ color: "#DDDBCB", textDecoration: 'none' }} >Home</NavLink>,
-    <NavLink to="/customers" style={{ color: "#DDDBCB", textDecoration: 'none' }}>Customers</NavLink>,
-    <NavLink to="/balances" style={{ color: "#DDDBCB", textDecoration: 'none' }}>Balances</NavLink>
-];
 
 function NavBar(props) {
     const { window } = props;
@@ -34,6 +29,14 @@ function NavBar(props) {
         const number = _.random(1000)
         return number;
     }
+    const navItems = [
+        <NavLink to="/" style={{ color: "#DDDBCB", textDecoration: 'none' }} >Home</NavLink>,
+        <NavLink to="/register" style={{ color: "#DDDBCB", textDecoration: 'none' }} >Register</NavLink>,
+        <NavLink to="/login" style={{ color: "#DDDBCB", textDecoration: 'none' }} >Login</NavLink>,
+        <NavLink to="/customers" style={{ color: "#DDDBCB", textDecoration: 'none' }}>Customers</NavLink>,
+        <NavLink to="/balances" style={{ color: "#DDDBCB", textDecoration: 'none' }}>Balances</NavLink>
+    ];
+
     const drawer = (
         <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
             <Typography variant="h6" sx={{ my: 2 }}>
@@ -77,11 +80,16 @@ function NavBar(props) {
                     </Typography>
                     <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
-                            {navItems.map(
+                            {/* {navItems.map(
                                 item =>
                                     <div key={getKey()} style={{ color: 'white', padding:25 }}>{item}</div>
 
-                            )}
+                            )} */}
+                            <NavLink to="/" style={{ color: "#DDDBCB", textDecoration: 'none', padding: 15 }} >Home</NavLink>
+                            <NavLink to="/register" style={{ color: "#DDDBCB", textDecoration: 'none', padding: 15 }} >Register</NavLink>
+                            <NavLink to="/login" style={{ color: "#DDDBCB", textDecoration: 'none', padding: 15 }} >Login</NavLink>
+                            <NavLink to="/customers" style={{ color: "#DDDBCB", textDecoration: 'none', padding: 15 }}>Customers</NavLink>
+                            <NavLink to="/balances" style={{ color: "#DDDBCB", textDecoration: 'none', padding: 15 }}>Balances</NavLink>
                         </div>
                     </Box>
                 </Toolbar>
